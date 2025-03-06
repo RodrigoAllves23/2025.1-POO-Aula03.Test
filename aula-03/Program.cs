@@ -40,3 +40,40 @@ tvSala.AlternarModoMudo();
 
 
 
+Console.WriteLine(" ");
+
+Console.WriteLine("=== Teste de Mudo na TV ===");
+
+//Aumenta o volume algumas vezes
+tvSala.AumentarVolume();
+tvSala.AumentarVolume();
+Console.WriteLine($"Volume após aumentar: {tvSala.Volume}");
+
+//Ativar Mudo
+tvSala.AlternarModoMudo();
+Console.WriteLine("Mudo ativado");
+Console.WriteLine($"Volume atual: {tvSala.Volume}(Volume Esperado: 0)");
+
+//Tentar aumentar o volume enquanto esta mudo
+tvSala.AumentarVolume();
+Console.WriteLine($"Tentativa de Aumentar o volume no Mudo: {tvSala.Volume}(Volume esperado: 0)");
+
+//Desativar Mudo (volume deve voltar ao valor anterior)
+tvSala.AlternarModoMudo();
+Console.WriteLine($"Mudo desativado");
+Console.WriteLine($"Volume restaurado: {tvSala.Volume}");
+
+//Diminuir Volume Normalmente
+tvSala.DiminuirVolume();
+Console.WriteLine($"Volume apos diminuir: {tvSala.Volume}");
+
+//Ativar mudo novamente
+tvSala.AlternarModoMudo();
+Console.WriteLine($"Mudo ativado novamente.");
+Console.WriteLine($"Volume atual: {tvSala.Volume} (Volume esperado: 0)");
+
+
+
+
+
+

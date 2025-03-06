@@ -13,10 +13,13 @@ public class Televisao
     {
         if (tamanho < TAMANHO_MINIMO || tamanho > TAMANHO_MAXIMO)
         {
-            throw new ArgumentOutOfRangeException($"O tamanho({tamanho}) não é suportado!");
+            throw new ArgumentOutOfRangeException(nameof(tamanho), $"O tamanho({tamanho}) não é suportado!");
+            //Console.WriteLine($"O tamanho ({tamanho}) não é suportado! Definindo para {TAMANHO_MINIMO}.");
+            //tamanho = TAMANHO_MINIMO; // Define um valor válido automaticamente
         }
         Tamanho = tamanho;
         Volume = VOLUME_PADRAO;
+        _estaMudo = false; // Adicionado: TV começa sem estar muda
     }
 
     //Optamos pela utilização da constante para tornar o código mais legível.
@@ -27,6 +30,7 @@ public class Televisao
     private const int VOLUME_PADRAO = 10;
 
     private int _ultimoVolume = VOLUME_PADRAO;
+    private bool _estaMudo; // Alterado: renomeado para seguir convenção de atributos privados
 
 
 
@@ -48,6 +52,8 @@ public class Televisao
 
     public void AumentarVolume()
     {
+        if (_estaMudo) return; // Alterado: impede aumento de volume no modo mudo
+        
         if (Volume < VOLUME_MAXIMO)
         {
             Volume++;
@@ -57,35 +63,44 @@ public class Televisao
         {
             Console.WriteLine("A TV já está no volume máximo permitido");
         }
+
     }
 
     public void DiminuirVolume()
     {
-        if (Volume > VOLUME_MINIMO)
-        {
-            Volume--;
-            _ultimoVolume = Volume;
-        }
-        else
-        {
-            Console.WriteLine("A TV já está no volume mínimo permitido");
-        }
+        if (_estaMudo) return;
+
+            if (Volume > VOLUME_MINIMO)
+            {
+                Volume--;
+                _ultimoVolume = Volume;
+            }
+            else
+            {
+                Console.WriteLine("A TV já está no volume mínimo permitido");
+            }
     }
 
     //1 botao de mudo -  toggle (on/off)
     //Volume = x; Volume = 0; Volume = x;
     public void AlternarModoMudo()
     {
-        if (Volume > VOLUME_MINIMO)
+        if (_estaMudo)
         {
-            _ultimoVolume = Volume;
-            Volume = VOLUME_MINIMO;
+            // Se estava mudo, restauramos o volume original
+            //_ultimoVolume = Volume; //codigo professor
+            //Volume = VOLUME_MINIMO; //codigo professor
+            Volume = _ultimoVolume;
             Console.WriteLine("A TV está no modo MUTE.");
         }
         else
         {
-            Volume = _ultimoVolume;
+            // Se não estava mudo, salvamos o volume atual e zeramos
+            //Volume = _ultimoVolume; //codigo professor
+            _ultimoVolume = Volume;
+            Volume = VOLUME_MINIMO;
             Console.WriteLine($"O volume da TV é: {Volume}.");
         }
+        _estaMudo = !_estaMudo; // Alterado: alterna entre mudo e normal
     }
 }

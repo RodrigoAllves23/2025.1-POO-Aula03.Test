@@ -116,6 +116,49 @@ public class TelevisaoTest
         Assert.AreEqual(volumeInicial, televisao.Volume);
     }
 
+    //Testes Alternando Canais
+    [TestMethod]
+    public void AumentarCanal_DeveIncrementarCanal()
+    {
+        var tv = new Televisao(32);
+        int canalInicial = tv.Canal;
 
-    
+        tv.AumentarCanal();
+
+        Assert.AreEqual(canalInicial + 1, tv.Canal);
+    }
+
+    [TestMethod]
+    public void AumentarCanal_DeveVoltarParaMinimo_QuandoAtingirMaximo()
+    {
+        var tv = new Televisao(32);
+        tv.Canal = 199;
+
+        tv.AumentarCanal();
+
+        Assert.AreEqual(1, tv.Canal);
+    }
+
+    [TestMethod]
+    public void DiminuirCanal_DeveDecrementarCanal()
+    {
+        var tv = new Televisao(32);
+        tv.Canal = 10;
+
+        tv.DiminuirCanal();
+
+        Assert.AreEqual(9, tv.Canal);
+    }
+
+    [TestMethod]
+    public void DiminuirCanal_DeveVoltarParaMaximo_QuandoAtingirMinimo()
+    {
+        var tv = new Televisao(32);
+        tv.Canal = 1;
+
+        tv.DiminuirCanal();
+
+        Assert.AreEqual(199, tv.Canal);
+    }
+
 }

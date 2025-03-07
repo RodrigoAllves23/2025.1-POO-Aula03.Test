@@ -72,8 +72,49 @@ tvSala.AlternarModoMudo();
 Console.WriteLine($"Mudo ativado novamente.");
 Console.WriteLine($"Volume atual: {tvSala.Volume} (Volume esperado: 0)");
 
+Console.WriteLine(" ");
 
+Console.WriteLine("=== Teste alterando canais ===");
 
+//Aumentar o canal uma vez
+tvSala.AumentarCanal();
+Console.WriteLine($"O canal atual é: {tvSala.Canal}");
+tvSala.AumentarCanal();
+tvSala.AumentarCanal();
+Console.WriteLine($"O canal atual é: {tvSala.Canal}");
 
+tvSala.DiminuirCanal();
+Console.WriteLine($"O canal atual é: {tvSala.Canal}");
+tvSala.DiminuirCanal();
+tvSala.DiminuirCanal();
+Console.WriteLine($"O canal atual é: {tvSala.Canal}");
+
+//Alterando canal com um numero
+tvSala.SelecionarCanal(50);
+Console.WriteLine($"Canal alterado com numero: {tvSala.Canal}");
+
+//impresão simples sem uso do try-catch
+//tvSala.SelecionarCanal(200);
+
+//impressão com try catch
+try
+{
+    tvSala.SelecionarCanal(50);
+    Console.WriteLine($"Canal alterado com numero: {tvSala.Canal}");
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
+
+try
+{
+    tvSala.SelecionarCanal(200); // Canal inválido
+    Console.WriteLine($"Canal alterado com numero: {tvSala.Canal}");
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
 
 

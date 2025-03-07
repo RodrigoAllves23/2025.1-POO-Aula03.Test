@@ -20,6 +20,7 @@ public class Televisao
         Tamanho = tamanho;
         Volume = VOLUME_PADRAO;
         _estaMudo = false; // Adicionado: TV começa sem estar muda
+        Canal = CANAL_INICIAL; //Adicionado: variavel canal inicial
     }
 
     //Optamos pela utilização da constante para tornar o código mais legível.
@@ -31,6 +32,10 @@ public class Televisao
 
     private int _ultimoVolume = VOLUME_PADRAO;
     private bool _estaMudo; // Alterado: renomeado para seguir convenção de atributos privados
+
+    private const int CANAL_INICIAL = 5;
+    private const int CANAL_MAXIMO = 199;
+    private const int CANAL_MINIMO = 1;
 
 
 
@@ -81,6 +86,7 @@ public class Televisao
             }
     }
 
+    //Funcionalidade mudo
     //1 botao de mudo -  toggle (on/off)
     //Volume = x; Volume = 0; Volume = x;
     public void AlternarModoMudo()
@@ -91,7 +97,7 @@ public class Televisao
             //_ultimoVolume = Volume; //codigo professor
             //Volume = VOLUME_MINIMO; //codigo professor
             Volume = _ultimoVolume;
-            Console.WriteLine("A TV está no modo MUTE.");
+            Console.WriteLine($"Som restaurado. Volume atual: {Volume}");
         }
         else
         {
@@ -99,8 +105,57 @@ public class Televisao
             //Volume = _ultimoVolume; //codigo professor
             _ultimoVolume = Volume;
             Volume = VOLUME_MINIMO;
-            Console.WriteLine($"O volume da TV é: {Volume}.");
+            Console.WriteLine("A TV está no modo MUTE.");
         }
         _estaMudo = !_estaMudo; // Alterado: alterna entre mudo e normal
+    }
+
+    //Funcionalidade Alterando Canais 
+    public void AumentarCanal()
+    {
+        if (Canal < CANAL_MAXIMO)
+        {
+            Canal++;
+        }
+        else
+        {
+            Canal = CANAL_MINIMO;
+        }
+        Console.WriteLine($"Canal alterado para {Canal}");// Alterado: Mostra o canal atual
+    }
+
+    public void DiminuirCanal()
+    {
+        if (Canal > CANAL_MINIMO)
+        {
+            Canal--;
+        }
+        else
+        {
+            Canal = CANAL_MAXIMO;
+        }
+        Console.WriteLine($"Canal alterado para {Canal}"); // Alterado: Mostra o canal atual
+    }
+
+    //Funcionalidade Selecionar canal pelo numero 
+    public void SelecionarCanal(int numero)
+    {
+        if (numero >= CANAL_MINIMO && numero <= CANAL_MAXIMO)
+        {
+            Canal = numero;
+        }
+        else
+        {
+            //codigo menos legivel
+            //throw new ArgumentOutOfRangeException(nameof(numero), "Canal não encontrado. Canais disponiveis no momento estão entre: " + CANAL_MINIMO +"e"+ CANAL_MAXIMO + "!!!" );
+
+            //Código com legibilidade melhor, usa o try-catch ERRO
+            throw new ArgumentOutOfRangeException(nameof(numero),
+            $"Canal não encontrado. Canais disponíveis no momento estão entre {CANAL_MINIMO} e {CANAL_MAXIMO}.");
+
+            //Impresão simples não usa o try-catch
+            //Console.WriteLine($"Erro: Canal {numero} não encontrado. Canais disponíveis: {CANAL_MINIMO} a {CANAL_MAXIMO}.");
+
+        }
     }
 }

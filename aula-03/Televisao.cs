@@ -55,21 +55,21 @@ public class Televisao
     public int Canal { get; set; }
     public bool Estado { get; set; }
 
-    public void AumentarVolume()
-    {
-        if (_estaMudo) return; // Alterado: impede aumento de volume no modo mudo
+    //public void AumentarVolume()
+    //{
+    //    if (_estaMudo) return; // Alterado: impede aumento de volume no modo mudo
         
-        if (Volume < VOLUME_MAXIMO)
-        {
-            Volume++;
-            _ultimoVolume = Volume;
-        }
-        else
-        {
-            Console.WriteLine("A TV já está no volume máximo permitido");
-        }
+    //    if (Volume < VOLUME_MAXIMO)
+    //    {
+    //        Volume++;
+    //        _ultimoVolume = Volume;
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("A TV já está no volume máximo permitido");
+    //    }
 
-    }
+    //}
 
     public void DiminuirVolume()
     {
